@@ -1,17 +1,44 @@
-# bjj_scoreboard
+# 🥋 BJJ Scoreboard
 
-A new Flutter project.
+Приложение для ведения счёта в бразильском джиу-джитсу (BJJ).  
+Поддерживает два таймера (синий и красный угол), очки, преимущества и штрафы.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 🚀 Возможности
 
-A few resources to get you started if this is your first Flutter project:
+- ⏱️ Ведение счёта для двух соперников (синий / красный)
+- ➕ Кнопки быстрого добавления очков: +1, +2, +3, +4
+- 🟡 Отдельные счётчики для **преимуществ** (Advantage)
+- ⚠️ Отдельные счётчики для **штрафов** (Penalty)
+- 🔄 Уменьшение очков по долгому нажатию
+- 🎨 Цветовая индикация для каждого угла
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🛠️ Технологии
+
+- **Flutter** — кросс-платформенный фреймворк
+- **Dart** — язык программирования
+- **Provider** — управление состоянием (планируется)
+
+---
+
+## 📱 Платформы
+
+- Android
+- iOS
+- Web
+- Linux (Desktop)
+- Windows (Desktop)
+- macOS (Desktop)
+
+---
+
+## 🚀 Быстрый старт
+
+### 1. Установите Flutter
+
+```bash
+# Следуйте инструкции на официальном сайте
+# https://docs.flutter.dev/get-started/install
