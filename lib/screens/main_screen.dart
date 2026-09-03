@@ -1,3 +1,5 @@
+import 'package:bjj_scoreboard/components/point_button.dart';
+import 'package:bjj_scoreboard/components/timer_button.dart';
 import 'package:flutter/material.dart';
 
 import '../sections/button_section.dart';
@@ -147,19 +149,74 @@ class _MainScreenState extends State<MainScreen> {
           onPenSub: _reduceBluePenScore,
         ),
         Expanded(
-          child: ScoreSection(
-            score: blueScore,
-            color: Color(0xFF153fa1),
-            advScore: blueAdvScore,
-            penScore: bluePenScore,
-          ),
-        ),
-        Expanded(
-          child: ScoreSection(
-            score: redScore,
-            color: Color(0xFFc92236),
-            advScore: redAdvScore,
-            penScore: redPenScore,
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: PointButton(
+                      text: 'UNDO',
+                      onPressed: () {},
+                      onLongPress: () {},
+                      color: Colors.lightGreen,
+                    ),
+                  ),
+                  TimerButton(
+                    seconds: 300,
+                    width: 200,
+                    size: 40,
+                    isTitle: false,
+                  ),
+                  Expanded(
+                    child: PointButton(
+                      text: 'FINISH',
+                      onPressed: () {},
+                      onLongPress: () {},
+                      color: Colors.blueGrey,
+                    ),
+                  ),
+                ],
+              ),
+              Expanded(
+                child: Stack(
+                  alignment: .center,
+                  children: [
+                    Positioned.fill(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: ScoreSection(
+                              score: blueScore,
+                              color: Color(0xFF153fa1),
+                              advScore: blueAdvScore,
+                              penScore: bluePenScore,
+                            ),
+                          ),
+                          Expanded(
+                            child: ScoreSection(
+                              score: redScore,
+                              color: Color(0xFFc92236),
+                              advScore: redAdvScore,
+                              penScore: redPenScore,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 63,
+                      child: PointButton(
+                        text: 'DOUBLE STALLING',
+                        size: 10,
+                        onPressed: () {},
+                        onLongPress: () {},
+                        color: Color(0xFFfbbb15),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
         ButtonSection(
