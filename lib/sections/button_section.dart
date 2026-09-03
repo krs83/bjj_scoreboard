@@ -1,7 +1,7 @@
-import 'package:bjj_scoreboard/components/timer_button.dart';
+import 'package:bjj_scoreboard/components/buttons/timer_button.dart';
 import 'package:flutter/material.dart';
 
-import '../components/point_button.dart';
+import '../components/buttons/point_button.dart';
 
 class ButtonSection extends StatelessWidget {
   ButtonSection({
