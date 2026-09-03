@@ -1,3 +1,4 @@
+import 'package:bjj_scoreboard/components/timer_button.dart';
 import 'package:flutter/material.dart';
 
 import '../components/point_button.dart';
@@ -72,6 +73,7 @@ class ButtonSection extends StatelessWidget {
               onPenSub(penScore);
             },
           ),
+          TimerButton(seconds: 10),
         ],
       ),
     );
