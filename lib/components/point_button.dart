@@ -7,11 +7,13 @@ class PointButton extends StatelessWidget {
     required this.onPressed,
     required this.onLongPress,
     required this.color,
+    this.size = 20,
   });
   final String text;
   final Color color;
   final VoidCallback onPressed;
   final VoidCallback onLongPress;
+  final double size;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class PointButton extends StatelessWidget {
       onLongPress: onLongPress,
       child: Container(
         width: 120,
-        height: 50,
+        height: 40,
         decoration: BoxDecoration(borderRadius: .circular(10), color: color),
         padding: const .all(6),
         margin: .all(5),
@@ -29,7 +31,7 @@ class PointButton extends StatelessWidget {
           textAlign: .center,
           style: TextStyle(
             color: Colors.white,
-            fontSize: 20,
+            fontSize: size,
             fontWeight: .bold,
           ),
         ),

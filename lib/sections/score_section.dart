@@ -40,7 +40,7 @@ class _ScoreSectionState extends State<ScoreSection> {
               style: TextStyle(color: Colors.white),
             ),
           ),
-          Flexible(flex: 6, child: ScoreField(score: widget.score.toString())),
+          Flexible(flex: 4, child: ScoreField(score: widget.score.toString())),
           Flexible(
             flex: 1,
             child: Row(
