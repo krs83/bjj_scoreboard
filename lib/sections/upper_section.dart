@@ -4,7 +4,9 @@ import '../components/buttons/point_button.dart';
 import '../components/buttons/timer_button.dart';
 
 class UpperSection extends StatelessWidget {
-  const UpperSection({super.key});
+  const UpperSection({super.key, required this.onUndo});
+
+  final void Function() onUndo;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class UpperSection extends StatelessWidget {
           child: PointButton(
             text: 'UNDO',
             onPressed: () {},
-            onLongPress: () {},
+            onLongPress: onUndo,
             color: Colors.blueGrey,
           ),
         ),

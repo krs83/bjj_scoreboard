@@ -13,6 +13,8 @@ class MiddleSection extends StatelessWidget {
     required this.redAdvScore,
     required this.bluePenScore,
     required this.redPenScore,
+    required this.onDoublePenScore,
+    required this.onUndo,
   });
 
   final int blueScore;
@@ -21,12 +23,14 @@ class MiddleSection extends StatelessWidget {
   final int redAdvScore;
   final int bluePenScore;
   final int redPenScore;
+  final void Function() onDoublePenScore;
+  final void Function() onUndo;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        UpperSection(),
+        UpperSection(onUndo: onUndo),
         Expanded(
           child: Stack(
             alignment: .center,
@@ -56,10 +60,12 @@ class MiddleSection extends StatelessWidget {
               Positioned(
                 bottom: 63,
                 child: PointButton(
-                  text: 'DOUBLE STALLING',
-                  size: 10,
+                  text: 'DOUBLE STALLING\n long DOUBLE PENALTY',
+                  size: 8,
                   onPressed: () {},
-                  onLongPress: () {},
+                  onLongPress: () {
+                    onDoublePenScore();
+                  },
                   color: Color(0xFFfbbb15),
                 ),
               ),
