@@ -1,5 +1,8 @@
+import 'package:bjj_scoreboard/models/score_action.dart';
+import 'package:bjj_scoreboard/models/score_history_item.dart';
 import 'package:flutter/material.dart';
 
+import '../models/side.dart';
 import '../sections/button_section.dart';
 import '../sections/middle_section.dart';
 
@@ -17,10 +20,20 @@ class _MainScreenState extends State<MainScreen> {
   int blueAdvScore = 0;
   int redPenScore = 0;
   int bluePenScore = 0;
+  List<ScoreHistoryItem> scoreHistory = [];
 
   //blue scores
-  void _checkBluePositiveScore(int score, int index) {
+  void _addBlueScore(int index, {bool isUndo = false}) {
     setState(() {
+      if (!isUndo) {
+        scoreHistory.add(
+          ScoreHistoryItem(
+            type: ScoreType.addScore,
+            side: Side.blue,
+            value: index,
+          ),
+        );
+      }
       if (blueScore < 99) {
         blueScore += index + 1;
       }
@@ -30,8 +43,17 @@ class _MainScreenState extends State<MainScreen> {
     });
   }
 
-  void _checkBlueNegativeScore(int score, int index) {
+  void _reduceBlueScore(int index, {bool isUndo = false}) {
     setState(() {
+      if (!isUndo) {
+        scoreHistory.add(
+          ScoreHistoryItem(
+            type: ScoreType.reduceScore,
+            side: Side.blue,
+            value: index,
+          ),
+        );
+      }
       if (blueScore > 0) {
         blueScore -= index + 1;
       }
@@ -41,32 +63,60 @@ class _MainScreenState extends State<MainScreen> {
     });
   }
 
-  void _addBlueAdvScore(int score) {
+  void _addBlueAdvScore({bool isUndo = false}) {
     setState(() {
+      if (!isUndo) {
+        scoreHistory.add(
+          ScoreHistoryItem(type: ScoreType.addAdv, side: Side.blue, value: 1),
+        );
+      }
       if (blueAdvScore < 99) {
         blueAdvScore++;
       }
     });
   }
 
-  void _reduceBlueAdvScore(int score) {
+  void _reduceBlueAdvScore({bool isUndo = false}) {
     setState(() {
+      if (!isUndo) {
+        scoreHistory.add(
+          ScoreHistoryItem(
+            type: ScoreType.reduceAdv,
+            side: Side.blue,
+            value: 1,
+          ),
+        );
+      }
       if (blueAdvScore > 0) {
         blueAdvScore--;
       }
     });
   }
 
-  void _addBluePenScore(int score) {
+  void _addBluePenScore({bool isUndo = false}) {
     setState(() {
+      if (!isUndo) {
+        scoreHistory.add(
+          ScoreHistoryItem(type: ScoreType.addPen, side: Side.blue, value: 1),
+        );
+      }
       if (bluePenScore < 99) {
         bluePenScore++;
       }
     });
   }
 
-  void _reduceBluePenScore(int score) {
+  void _reduceBluePenScore({bool isUndo = false}) {
     setState(() {
+      if (!isUndo) {
+        scoreHistory.add(
+          ScoreHistoryItem(
+            type: ScoreType.reducePen,
+            side: Side.blue,
+            value: 1,
+          ),
+        );
+      }
       if (bluePenScore > 0) {
         bluePenScore--;
       }
@@ -74,8 +124,17 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   //red scores
-  void _checkRedPositiveScore(int score, int index) {
+  void _addRedScore(int index, {bool isUndo = false}) {
     setState(() {
+      if (!isUndo) {
+        scoreHistory.add(
+          ScoreHistoryItem(
+            type: ScoreType.addScore,
+            side: Side.red,
+            value: index,
+          ),
+        );
+      }
       if (redScore < 99) {
         redScore += index + 1;
       }
@@ -85,8 +144,17 @@ class _MainScreenState extends State<MainScreen> {
     });
   }
 
-  void _checkRedNegativeScore(int score, int index) {
+  void _reduceRedScore(int index, {bool isUndo = false}) {
     setState(() {
+      if (!isUndo) {
+        scoreHistory.add(
+          ScoreHistoryItem(
+            type: ScoreType.reduceScore,
+            side: Side.red,
+            value: index,
+          ),
+        );
+      }
       if (redScore > 0) {
         redScore -= index + 1;
       }
@@ -96,34 +164,100 @@ class _MainScreenState extends State<MainScreen> {
     });
   }
 
-  void _addRedAdvScore(int score) {
+  void _addRedAdvScore({bool isUndo = false}) {
     setState(() {
+      if (!isUndo) {
+        scoreHistory.add(
+          ScoreHistoryItem(type: ScoreType.addAdv, side: Side.red, value: 1),
+        );
+      }
       if (redAdvScore < 99) {
         redAdvScore++;
       }
     });
   }
 
-  void _reduceRedAdvScore(int score) {
+  void _reduceRedAdvScore({bool isUndo = false}) {
     setState(() {
+      if (!isUndo) {
+        scoreHistory.add(
+          ScoreHistoryItem(type: ScoreType.reduceAdv, side: Side.red, value: 1),
+        );
+      }
       if (redAdvScore > 0) {
         redAdvScore--;
       }
     });
   }
 
-  void _addRedPenScore(int score) {
+  void _addRedPenScore({bool isUndo = false}) {
     setState(() {
+      if (!isUndo) {
+        scoreHistory.add(
+          ScoreHistoryItem(type: ScoreType.addPen, side: Side.red, value: 1),
+        );
+      }
       if (redPenScore < 99) {
         redPenScore++;
       }
     });
   }
 
-  void _reduceRedPenScore(int score) {
+  void _reduceRedPenScore({bool isUndo = false}) {
     setState(() {
+      if (!isUndo) {
+        scoreHistory.add(
+          ScoreHistoryItem(type: ScoreType.reducePen, side: Side.red, value: 1),
+        );
+      }
       if (redPenScore > 0) {
         redPenScore--;
+      }
+    });
+  }
+
+  void _doublePenalty({bool isUndo = false}) {
+    setState(() {
+      // scoreHistory.add(12);
+      redPenScore++;
+      bluePenScore++;
+    });
+  }
+
+  void _undoScore() {
+    if (scoreHistory.isEmpty) return;
+
+    final last = scoreHistory.removeLast();
+    final points = last.value;
+
+    setState(() {
+      final isBlue = last.side == Side.blue;
+
+      switch (last.type) {
+        case ScoreType.addScore:
+          isBlue
+              ? _reduceBlueScore(points, isUndo: true)
+              : _reduceRedScore(points, isUndo: true);
+        case ScoreType.reduceScore:
+          isBlue
+              ? _addBlueScore(points, isUndo: true)
+              : _addRedScore(points, isUndo: true);
+        case ScoreType.addAdv:
+          isBlue
+              ? _reduceBlueAdvScore(isUndo: true)
+              : _reduceRedAdvScore(isUndo: true);
+        case ScoreType.reduceAdv:
+          isBlue
+              ? _addBlueAdvScore(isUndo: true)
+              : _addRedAdvScore(isUndo: true);
+        case ScoreType.addPen:
+          isBlue
+              ? _reduceBluePenScore(isUndo: true)
+              : _reduceRedPenScore(isUndo: true);
+        case ScoreType.reducePen:
+          isBlue
+              ? _addBluePenScore(isUndo: true)
+              : _addRedPenScore(isUndo: true);
       }
     });
   }
@@ -139,8 +273,8 @@ class _MainScreenState extends State<MainScreen> {
           score: blueScore,
           advScore: blueAdvScore,
           penScore: bluePenScore,
-          onPositiveCheck: _checkBluePositiveScore,
-          onNegativeCheck: _checkBlueNegativeScore,
+          onScoreAdd: _addBlueScore,
+          onScoreReduce: _reduceBlueScore,
           onAdvAdd: _addBlueAdvScore,
           onPenAdd: _addBluePenScore,
           onAdvSub: _reduceBlueAdvScore,
@@ -154,6 +288,8 @@ class _MainScreenState extends State<MainScreen> {
             redAdvScore: redAdvScore,
             bluePenScore: bluePenScore,
             redPenScore: redPenScore,
+            onDoublePenScore: _doublePenalty,
+            onUndo: _undoScore,
           ),
         ),
         ButtonSection(
@@ -163,8 +299,8 @@ class _MainScreenState extends State<MainScreen> {
           score: redScore,
           advScore: redAdvScore,
           penScore: redPenScore,
-          onPositiveCheck: _checkRedPositiveScore,
-          onNegativeCheck: _checkRedNegativeScore,
+          onScoreAdd: _addRedScore,
+          onScoreReduce: _reduceRedScore,
           onAdvAdd: _addRedAdvScore,
           onPenAdd: _addRedPenScore,
           onAdvSub: _reduceRedAdvScore,
