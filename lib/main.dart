@@ -1,9 +1,15 @@
+import 'package:bjj_scoreboard/models/athlete.dart';
+import 'package:bjj_scoreboard/screens/start_screen.dart';
 import 'package:flutter/material.dart';
-
-import 'screens/main_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const BjjScoreboardApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => Athlete(),
+      child: const BjjScoreboardApp(),
+    ),
+  );
 }
 
 class BjjScoreboardApp extends StatelessWidget {
@@ -11,10 +17,6 @@ class BjjScoreboardApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: SafeArea(
-        child: Scaffold(backgroundColor: Color(0xFF15262b), body: MainScreen()),
-      ),
-    );
+    return MaterialApp(home: SafeArea(child: StartScreen()));
   }
 }

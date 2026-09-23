@@ -1,6 +1,8 @@
+import 'package:bjj_scoreboard/models/athlete.dart';
 import 'package:bjj_scoreboard/sections/score_section.dart';
 import 'package:bjj_scoreboard/sections/upper_section.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../components/buttons/point_button.dart';
 
@@ -28,6 +30,9 @@ class MiddleSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final blueAthleteName = context.watch<Athlete>().blueAthleteName;
+    final redAthleteName = context.watch<Athlete>().redAthleteName;
+
     return Column(
       children: [
         UpperSection(onUndo: onUndo),
@@ -41,17 +46,19 @@ class MiddleSection extends StatelessWidget {
                     Expanded(
                       child: ScoreSection(
                         score: blueScore,
-                        color: Color(0xFF153fa1),
+                        color: Color(0xFFc92236),
                         advScore: blueAdvScore,
                         penScore: bluePenScore,
+                        athleteName: blueAthleteName,
                       ),
                     ),
                     Expanded(
                       child: ScoreSection(
                         score: redScore,
-                        color: Color(0xFFc92236),
+                        color: Color(0xFF153fa1),
                         advScore: redAdvScore,
                         penScore: redPenScore,
+                        athleteName: redAthleteName,
                       ),
                     ),
                   ],
@@ -63,7 +70,7 @@ class MiddleSection extends StatelessWidget {
                   text: 'DOUBLE STALLING\n long DOUBLE PENALTY',
                   size: 8,
                   onPressed: () {},
-                  onLongPress: () {
+                  onDoubleTap: () {
                     onDoublePenScore();
                   },
                   color: Color(0xFFfbbb15),
