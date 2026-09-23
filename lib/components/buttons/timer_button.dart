@@ -1,3 +1,4 @@
+import 'package:bjj_scoreboard/constants.dart';
 import 'package:chronograph/chronograph.dart';
 import 'package:flutter/material.dart';
 
@@ -79,7 +80,7 @@ class _TimerButtonState extends State<TimerButton> {
                 Text(
                   widget.title,
                   style: TextStyle(
-                    color: Color(0xFFfbbb15),
+                    color: kYellowTimer,
                     fontSize: 10,
                     letterSpacing: 2,
                   ),
@@ -89,7 +90,9 @@ class _TimerButtonState extends State<TimerButton> {
                 builder: (context, info, _) => Text(
                   '${info.paddedMinutes}:${info.paddedSeconds}',
                   style: TextStyle(
-                    color: Color(0xFFfbbb15),
+                    color: !timer.value.running
+                        ? kYellowTimer
+                        : Color(0xFFffffff),
                     fontSize: widget.size,
                     fontFamily: 'Roboto',
                   ),

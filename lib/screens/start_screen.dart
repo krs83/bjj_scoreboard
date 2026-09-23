@@ -32,7 +32,7 @@ class _StartScreenState extends State<StartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF15262b),
+      backgroundColor: kAppBackGroundColor,
       body: Column(
         children: [
           NameInputField(
