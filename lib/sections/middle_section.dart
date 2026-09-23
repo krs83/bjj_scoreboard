@@ -1,3 +1,4 @@
+import 'package:bjj_scoreboard/constants.dart';
 import 'package:bjj_scoreboard/models/athlete.dart';
 import 'package:bjj_scoreboard/sections/score_section.dart';
 import 'package:bjj_scoreboard/sections/upper_section.dart';
@@ -46,7 +47,7 @@ class MiddleSection extends StatelessWidget {
                     Expanded(
                       child: ScoreSection(
                         score: blueScore,
-                        color: Color(0xFFc92236),
+                        color: kRedSection,
                         advScore: blueAdvScore,
                         penScore: bluePenScore,
                         athleteName: blueAthleteName,
@@ -55,7 +56,7 @@ class MiddleSection extends StatelessWidget {
                     Expanded(
                       child: ScoreSection(
                         score: redScore,
-                        color: Color(0xFF153fa1),
+                        color: kBlueSection,
                         advScore: redAdvScore,
                         penScore: redPenScore,
                         athleteName: redAthleteName,
