@@ -1,6 +1,8 @@
+import 'package:bjj_scoreboard/constants.dart';
 import 'package:bjj_scoreboard/models/score_action.dart';
 import 'package:bjj_scoreboard/models/score_history_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../models/side.dart';
 import '../sections/button_section.dart';
@@ -21,6 +23,25 @@ class _MainScreenState extends State<MainScreen> {
   int redPenScore = 0;
   int bluePenScore = 0;
   List<ScoreHistoryItem> scoreHistory = [];
+
+  @override
+  void initState() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    super.initState();
+  }
 
   //blue scores
   void _addBlueScore(int index, {bool isUndo = false}) {
@@ -264,49 +285,54 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        ButtonSection(
-          color: Color(0xFF153fa1),
-          advText: 'ADV',
-          penText: 'PEN',
-          score: blueScore,
-          advScore: blueAdvScore,
-          penScore: bluePenScore,
-          onScoreAdd: _addBlueScore,
-          onScoreReduce: _reduceBlueScore,
-          onAdvAdd: _addBlueAdvScore,
-          onPenAdd: _addBluePenScore,
-          onAdvSub: _reduceBlueAdvScore,
-          onPenSub: _reduceBluePenScore,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: kAppBackGroundColor,
+        body: Row(
+          children: [
+            ButtonSection(
+              color: kRedSection,
+              advText: 'ADV',
+              penText: 'PEN',
+              score: blueScore,
+              advScore: blueAdvScore,
+              penScore: bluePenScore,
+              onScoreAdd: _addBlueScore,
+              onScoreReduce: _reduceBlueScore,
+              onAdvAdd: _addBlueAdvScore,
+              onPenAdd: _addBluePenScore,
+              onAdvSub: _reduceBlueAdvScore,
+              onPenSub: _reduceBluePenScore,
+            ),
+            Expanded(
+              child: MiddleSection(
+                blueScore: blueScore,
+                redScore: redScore,
+                blueAdvScore: blueAdvScore,
+                redAdvScore: redAdvScore,
+                bluePenScore: bluePenScore,
+                redPenScore: redPenScore,
+                onDoublePenScore: _doublePenalty,
+                onUndo: _undoScore,
+              ),
+            ),
+            ButtonSection(
+              color: kBlueSection,
+              advText: 'ADV',
+              penText: 'PEN',
+              score: redScore,
+              advScore: redAdvScore,
+              penScore: redPenScore,
+              onScoreAdd: _addRedScore,
+              onScoreReduce: _reduceRedScore,
+              onAdvAdd: _addRedAdvScore,
+              onPenAdd: _addRedPenScore,
+              onAdvSub: _reduceRedAdvScore,
+              onPenSub: _reduceRedPenScore,
+            ),
+          ],
         ),
-        Expanded(
-          child: MiddleSection(
-            blueScore: blueScore,
-            redScore: redScore,
-            blueAdvScore: blueAdvScore,
-            redAdvScore: redAdvScore,
-            bluePenScore: bluePenScore,
-            redPenScore: redPenScore,
-            onDoublePenScore: _doublePenalty,
-            onUndo: _undoScore,
-          ),
-        ),
-        ButtonSection(
-          color: Color(0xFFc92236),
-          advText: 'ADV',
-          penText: 'PEN',
-          score: redScore,
-          advScore: redAdvScore,
-          penScore: redPenScore,
-          onScoreAdd: _addRedScore,
-          onScoreReduce: _reduceRedScore,
-          onAdvAdd: _addRedAdvScore,
-          onPenAdd: _addRedPenScore,
-          onAdvSub: _reduceRedAdvScore,
-          onPenSub: _reduceRedPenScore,
-        ),
-      ],
+      ),
     );
   }
 }
