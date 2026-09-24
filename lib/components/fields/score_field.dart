@@ -6,9 +6,7 @@ class ScoreField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: .infinity,
-      height: .infinity,
+    return SizedBox.expand(
       child: FittedBox(
         fit: .fill,
         child: Text(

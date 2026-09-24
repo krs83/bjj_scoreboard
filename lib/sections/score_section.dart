@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../components/score_field.dart';
+import '../components/fields/score_field.dart';
 
 class ScoreSection extends StatefulWidget {
   const ScoreSection({
@@ -9,12 +9,14 @@ class ScoreSection extends StatefulWidget {
     required this.color,
     required this.advScore,
     required this.penScore,
+    required this.athleteName,
   });
 
   final int score;
   final int advScore;
   final int penScore;
   final Color color;
+  final String athleteName;
 
   @override
   State<ScoreSection> createState() => _ScoreSectionState();
@@ -35,55 +37,50 @@ class _ScoreSectionState extends State<ScoreSection> {
         children: [
           Flexible(
             child: Text(
-              'NAME SURNAME SURNAME',
+              widget.athleteName,
               textAlign: .center,
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: .w400,
+              ),
             ),
           ),
-          Flexible(flex: 4, child: ScoreField(score: widget.score.toString())),
-          Flexible(
-            flex: 1,
-            child: Row(
-              mainAxisAlignment: .spaceBetween,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    border: .all(color: Colors.white),
-                    borderRadius: .circular(10),
-                  ),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: .only(left: 15, right: 15),
-                        child: Text(
-                          'ADV',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                      AdvPenScoreField(score: widget.advScore.toString()),
-                    ],
-                  ),
+          Flexible(child: ScoreField(score: widget.score.toString())),
+          Row(
+            mainAxisAlignment: .spaceBetween,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  border: .all(color: Colors.white),
+                  borderRadius: .circular(10),
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    border: .all(color: Colors.white),
-                    borderRadius: .circular(10),
-                  ),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: .only(left: 15, right: 15),
-                        child: Text(
-                          'PEN',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                      AdvPenScoreField(score: widget.penScore.toString()),
-                    ],
-                  ),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: .only(left: 15, right: 15),
+                      child: Text('ADV', style: TextStyle(color: Colors.white)),
+                    ),
+                    AdvPenScoreField(score: widget.advScore.toString()),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  border: .all(color: Colors.white),
+                  borderRadius: .circular(10),
+                ),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: .only(left: 15, right: 15),
+                      child: Text('PEN', style: TextStyle(color: Colors.white)),
+                    ),
+                    AdvPenScoreField(score: widget.penScore.toString()),
+                  ],
+                ),
+              ),
+            ],
           ),
         ],
       ),

@@ -71,7 +71,7 @@ class MiddleSection extends StatelessWidget {
                   text: 'DOUBLE STALLING\n long DOUBLE PENALTY',
                   size: 8,
                   onPressed: () {},
-                  onDoubleTap: () {
+                  onLongPress: () {
                     onDoublePenScore();
                   },
                   color: Color(0xFFfbbb15),
