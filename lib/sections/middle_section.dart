@@ -18,6 +18,7 @@ class MiddleSection extends StatelessWidget {
     required this.redPenScore,
     required this.onDoublePenScore,
     required this.onUndo,
+    required this.onFinishMenu,
   });
 
   final int blueScore;
@@ -28,6 +29,7 @@ class MiddleSection extends StatelessWidget {
   final int redPenScore;
   final void Function() onDoublePenScore;
   final void Function() onUndo;
+  final void Function() onFinishMenu;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,7 @@ class MiddleSection extends StatelessWidget {
 
     return Column(
       children: [
-        UpperSection(onUndo: onUndo),
+        UpperSection(onUndo: onUndo, onFinishMenu: onFinishMenu),
         Expanded(
           child: Stack(
             alignment: .center,

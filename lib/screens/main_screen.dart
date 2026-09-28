@@ -1,3 +1,4 @@
+import 'package:bjj_scoreboard/components/fields/finish_menu_field.dart';
 import 'package:bjj_scoreboard/constants.dart';
 import 'package:bjj_scoreboard/models/score_action.dart';
 import 'package:bjj_scoreboard/models/score_history_item.dart';
@@ -23,6 +24,7 @@ class _MainScreenState extends State<MainScreen> {
   int redPenScore = 0;
   int bluePenScore = 0;
   List<ScoreHistoryItem> scoreHistory = [];
+  late bool isFinishMenu = false;
 
   @override
   void initState() {
@@ -35,12 +37,17 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   void dispose() {
-    super.dispose();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    super.initState();
+    super.dispose();
+  }
+
+  void onFinishMenu() {
+    setState(() {
+      isFinishMenu = !isFinishMenu;
+    });
   }
 
   //blue scores
@@ -288,48 +295,59 @@ class _MainScreenState extends State<MainScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: kAppBackGroundColor,
-        body: Row(
+        body: Stack(
           children: [
-            ButtonSection(
-              color: kRedSection,
-              advText: 'ADV',
-              penText: 'PEN',
-              score: blueScore,
-              advScore: blueAdvScore,
-              penScore: bluePenScore,
-              onScoreAdd: _addBlueScore,
-              onScoreReduce: _reduceBlueScore,
-              onAdvAdd: _addBlueAdvScore,
-              onPenAdd: _addBluePenScore,
-              onAdvSub: _reduceBlueAdvScore,
-              onPenSub: _reduceBluePenScore,
+            Row(
+              children: [
+                ButtonSection(
+                  color: kRedSection,
+                  advText: 'ADV',
+                  penText: 'PEN',
+                  score: blueScore,
+                  advScore: blueAdvScore,
+                  penScore: bluePenScore,
+                  onScoreAdd: _addBlueScore,
+                  onScoreReduce: _reduceBlueScore,
+                  onAdvAdd: _addBlueAdvScore,
+                  onPenAdd: _addBluePenScore,
+                  onAdvSub: _reduceBlueAdvScore,
+                  onPenSub: _reduceBluePenScore,
+                ),
+                Expanded(
+                  child: MiddleSection(
+                    blueScore: blueScore,
+                    redScore: redScore,
+                    blueAdvScore: blueAdvScore,
+                    redAdvScore: redAdvScore,
+                    bluePenScore: bluePenScore,
+                    redPenScore: redPenScore,
+                    onDoublePenScore: _doublePenalty,
+                    onUndo: _undoScore,
+                    onFinishMenu: onFinishMenu,
+                  ),
+                ),
+                ButtonSection(
+                  color: kBlueSection,
+                  advText: 'ADV',
+                  penText: 'PEN',
+                  score: redScore,
+                  advScore: redAdvScore,
+                  penScore: redPenScore,
+                  onScoreAdd: _addRedScore,
+                  onScoreReduce: _reduceRedScore,
+                  onAdvAdd: _addRedAdvScore,
+                  onPenAdd: _addRedPenScore,
+                  onAdvSub: _reduceRedAdvScore,
+                  onPenSub: _reduceRedPenScore,
+                ),
+              ],
             ),
-            Expanded(
-              child: MiddleSection(
-                blueScore: blueScore,
-                redScore: redScore,
-                blueAdvScore: blueAdvScore,
-                redAdvScore: redAdvScore,
-                bluePenScore: bluePenScore,
-                redPenScore: redPenScore,
-                onDoublePenScore: _doublePenalty,
-                onUndo: _undoScore,
-              ),
-            ),
-            ButtonSection(
-              color: kBlueSection,
-              advText: 'ADV',
-              penText: 'PEN',
-              score: redScore,
-              advScore: redAdvScore,
-              penScore: redPenScore,
-              onScoreAdd: _addRedScore,
-              onScoreReduce: _reduceRedScore,
-              onAdvAdd: _addRedAdvScore,
-              onPenAdd: _addRedPenScore,
-              onAdvSub: _reduceRedAdvScore,
-              onPenSub: _reduceRedPenScore,
-            ),
+            isFinishMenu
+                ? FinishMenuField(left: 150, right: 420)
+                : SizedBox.shrink(),
+            isFinishMenu
+                ? FinishMenuField(left: 420, right: 150)
+                : SizedBox.shrink(),
           ],
         ),
       ),
