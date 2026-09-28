@@ -33,9 +33,11 @@ flutter {
 }
 
 // ★★★ КЛЮЧЕВОЙ БЛОК ★★★
-repositories {
-    maven("https://storage.googleapis.com/download.flutter.io")
-    maven("https://mirrors.tuna.tsinghua.edu.cn/flutter/download.flutter.io")
-    google()
-    mavenCentral()
-}
+//repositories {
+//    maven { url = uri("https://maven.aliyun.com/repository/google") }
+//    maven { url = uri("https://maven.aliyun.com/repository/public") }
+//    maven("https://mirrors.tuna.tsinghua.edu.cn/flutter/download.flutter.io")
+//    maven("https://storage.googleapis.com/download.flutter.io")
+//    google()
+//    mavenCentral()
+//}
