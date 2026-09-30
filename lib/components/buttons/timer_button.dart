@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:bjj_scoreboard/constants.dart';
 import 'package:chronograph/chronograph.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ class TimerButton extends StatefulWidget {
     this.height = 70,
     this.size = 32,
     this.isTitle = true,
+    this.isMainTimer = true,
   });
 
   final int seconds;
@@ -19,6 +21,7 @@ class TimerButton extends StatefulWidget {
   final double height;
   final double size;
   final bool isTitle;
+  final bool isMainTimer;
 
   @override
   State<TimerButton> createState() => _TimerButtonState();
@@ -30,6 +33,7 @@ class _TimerButtonState extends State<TimerButton> {
     autostart: false,
     onCompleted: _timerReset,
   );
+  final player = AudioPlayer();
 
   @override
   void setState(VoidCallback fn) {
@@ -48,16 +52,24 @@ class _TimerButtonState extends State<TimerButton> {
 
   void _timerReset() {
     setState(() {
+      if (widget.isMainTimer) {
+        player.play(AssetSource('finish-gong.mp3'));
+      }
       timer.reset();
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    Color timeColor = kWhite;
+
     return GestureDetector(
       onTap: () {
         setState(() {
           _toggleTimer();
+          if (timer.value.running & widget.isMainTimer) {
+            player.play(AssetSource('start-sound.mp3'));
+          }
         });
       },
       onLongPress: () {
@@ -87,16 +99,21 @@ class _TimerButtonState extends State<TimerButton> {
                 ),
               ChronoView(
                 graph: timer,
-                builder: (context, info, _) => Text(
-                  '${info.paddedMinutes}:${info.paddedSeconds}',
-                  style: TextStyle(
-                    color: !timer.value.running
-                        ? kYellowTimer
-                        : Color(0xFFffffff),
-                    fontSize: widget.size,
-                    fontFamily: 'Roboto',
-                  ),
-                ),
+                builder: (context, info, _) {
+                  if (widget.isMainTimer) {
+                    if (info.inSeconds < 6) {
+                      timeColor = Color(0xFFCD5C5C);
+                    }
+                  }
+                  return Text(
+                    '${info.paddedMinutes}:${info.paddedSeconds}',
+                    style: TextStyle(
+                      color: !timer.value.running ? kYellowTimer : timeColor,
+                      fontSize: widget.size,
+                      fontFamily: 'Roboto',
+                    ),
+                  );
+                },
               ),
             ],
           ),

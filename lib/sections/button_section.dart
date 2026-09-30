@@ -73,7 +73,7 @@ class ButtonSection extends StatelessWidget {
               onPenSub();
             },
           ),
-          TimerButton(seconds: 10),
+          TimerButton(seconds: 10, isMainTimer: false),
         ],
       ),
     );

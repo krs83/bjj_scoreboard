@@ -34,6 +34,7 @@ class _StartScreenState extends State<StartScreen> {
     return Scaffold(
       backgroundColor: kAppBackGroundColor,
       body: Column(
+        mainAxisAlignment: .spaceAround,
         children: [
           NameInputField(
             fieldName: 'Соперник 1',

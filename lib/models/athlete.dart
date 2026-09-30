@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Athlete extends ChangeNotifier {
   String _blueAthleteName = '';
   String _redAthleteName = '';
-  int _seconds = 300;
+  int _seconds = 120;
 
   String get blueAthleteName => _blueAthleteName;
   String get redAthleteName => _redAthleteName;
